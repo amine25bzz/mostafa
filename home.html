@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>WAR COMMAND - Armory & Store</title>
+    <!-- Modern Cyber Gaming Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;800;900&family=Rajdhani:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/styles.css">
+</head>
+<body>
+    <!-- Main Hub Screen: Armory, Wallet & Hero Selection (Directly displayed, zero scroll) -->
+    <div id="homeScreen" style="display: flex;">
+        <!-- Toast Notification Bar -->
+        <div id="toastNotification" class="toast-notification"></div>
+
+        <div class="home-container">
+            <!-- Left Side Panel: Hero Spotlight, Stats & Difficulty -->
+            <div class="hero-spotlight-panel">
+                <!-- Top Balance Pill -->
+                <div class="wallet-badge-pill" id="walletQuickBadge">
+                    <img src="assets/coinshk.png" alt="Coins" class="wallet-coin-icon">
+                    <div class="wallet-badge-info">
+                        <span class="wallet-label">TOTAL BALANCE</span>
+                        <span id="homeCoinCount" class="wallet-amount">0</span>
+                    </div>
+                    <button class="add-coins-mini-btn" id="claimBonusBtn" title="Claim Free Coins Bonus">+</button>
+                </div>
+
+                <!-- 3D Holographic Hero Stage -->
+                <div class="hero-stage">
+                    <div class="hologram-glow"></div>
+                    <div class="player-display-large" id="playerDisplayLarge"></div>
+                    <div class="hero-pedestal"></div>
+                </div>
+
+                <!-- Hero Name & Stats Card -->
+                <div class="hero-info-card">
+                    <span id="heroRoleBadge" class="hero-role-badge">COMMANDO</span>
+                    <h2 id="heroNameDisplay" class="hero-name-title">CYBER WARRIOR</h2>
+                    
+                    <!-- Visual Stats Bars -->
+                    <div class="hero-stats-bars">
+                        <div class="stat-bar-row">
+                            <span class="stat-name">SPEED</span>
+                            <div class="stat-track"><div id="statSpeed" class="stat-fill" style="width: 80%;"></div></div>
+                        </div>
+                        <div class="stat-bar-row">
+                            <span class="stat-name">ATTACK</span>
+                            <div class="stat-track"><div id="statAttack" class="stat-fill" style="width: 85%;"></div></div>
+                        </div>
+                        <div class="stat-bar-row">
+                            <span class="stat-name">DEFENSE</span>
+                            <div class="stat-track"><div id="statDefense" class="stat-fill" style="width: 75%;"></div></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Difficulty Selection -->
+                <div class="difficulty-box">
+                    <span class="difficulty-label">DIFFICULTY</span>
+                    <div class="difficulty-selection-left">
+                        <button type="button" class="difficulty-btn" data-difficulty="easy">EASY</button>
+                        <button type="button" class="difficulty-btn selected" data-difficulty="normal">NORMAL</button>
+                        <button type="button" class="difficulty-btn" data-difficulty="hard">HARD</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Central Panel: Harmonized Tabs (Heroes - Shop - Loadout) -->
+            <div class="main-hub-panel">
+                <!-- Navigation Tabs Bar -->
+                <div class="hub-nav-tabs">
+                    <button type="button" class="hub-tab-btn active" data-tab="heroesTab">
+                        <span class="tab-icon">🦸</span>
+                        <span class="tab-text">HEROES</span>
+                    </button>
+                    <button type="button" class="hub-tab-btn" data-tab="storeTab">
+                        <span class="tab-icon">🛒</span>
+                        <span class="tab-text">ARMORY</span>
+                    </button>
+                    <button type="button" class="hub-tab-btn" data-tab="walletTab">
+                        <span class="tab-icon">🎒</span>
+                        <span class="tab-text">LOADOUT</span>
+                        <span id="walletItemCountBadge" class="tab-badge">0</span>
+                    </button>
+                </div>
+
+                <!-- Tabs Content Panes -->
+                <div class="hub-tab-content">
+                    
+                    <!-- 1. Hero Selection Tab -->
+                    <section id="heroesTab" class="tab-pane active">
+                        <div class="pane-header">
+                            <h3 class="pane-title">CHOOSE YOUR OPERATIVE</h3>
+                            <span class="pane-pill">4 OPERATIVES AVAILABLE</span>
+                        </div>
+
+                        <div class="heroes-grid" id="heroesGrid">
+                            <!-- Hero cards dynamically populated by JavaScript -->
+                        </div>
+                    </section>
+
+                    <!-- 2. Weapons & Gear Shop Tab -->
+                    <section id="storeTab" class="tab-pane">
+                        <div class="pane-header">
+                            <h3 class="pane-title">TACTICAL WEAPONS & GEAR</h3>
+                            <div class="store-balance-chip">
+                                <span class="chip-label">BALANCE:</span>
+                                <span class="chip-val" id="storeBalanceDisplay">0</span>
+                                <img src="assets/coinshk.png" alt="coins" class="chip-coin">
+                            </div>
+                        </div>
+
+                        <div class="store-items-grid" id="storeItemsGrid">
+                            <!-- Store items dynamically populated by JavaScript -->
+                        </div>
+                    </section>
+
+                    <!-- 3. Wallet & Loadout Tab -->
+                    <section id="walletTab" class="tab-pane">
+                        <div class="pane-header">
+                            <h3 class="pane-title">MY LOADOUT & INVENTORY</h3>
+                            <div class="wallet-header-stats">
+                                <div class="wstat-item">
+                                    <span class="wstat-lbl">FUNDS:</span>
+                                    <span class="wstat-val" id="walletTabBalance">0 🪙</span>
+                                </div>
+                                <div class="wstat-item">
+                                    <span class="wstat-lbl">ITEMS:</span>
+                                    <span class="wstat-val" id="walletTotalOwned">0</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Loadout Grid -->
+                        <div class="wallet-items-grid" id="walletItemsGrid">
+                            <!-- Wallet items dynamically populated by JavaScript -->
+                        </div>
+
+                        <!-- Empty State View -->
+                        <div id="walletEmptyState" class="wallet-empty-state" style="display: none;">
+                            <div class="empty-icon">🎒</div>
+                            <h4>LOADOUT IS EMPTY!</h4>
+                            <p>You haven't equipped any weapons yet. Visit the Armory to prepare your arsenal.</p>
+                            <button type="button" class="goto-store-btn" id="gotoStoreBtn">🛒 VISIT ARMORY</button>
+                        </div>
+                    </section>
+
+                </div>
+
+                <!-- Footer Operations & Launch Button -->
+                <div class="hub-action-footer" dir="ltr">
+                    <div class="secondary-actions">
+                        <button type="button" id="soundToggleBtn" class="utility-btn" title="Toggle Sound">
+                            <span id="soundIcon">🔊</span>
+                        </button>
+                        <button type="button" id="resetDataBtn" class="utility-btn danger" title="Reset Profile Data & Coins">
+                            <span>🔄</span>
+                        </button>
+                    </div>
+
+                    <button type="button" id="homeStartBtn" class="hub-play-btn">
+                        <span class="play-text">START</span>
+                        <span class="play-icon">▶</span>
+
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Home Screen JavaScript Logic -->
+    <script src="js/Home.js"></script>
+</body>
+</html>

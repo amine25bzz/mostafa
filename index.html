@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>WAR COMMAND: GLOBAL ASSAULT - Loading</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            overflow: hidden;
+            background: #333;
+            color: white;
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        /*  */
+        .cracked-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #444;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .crack {
+            position: absolute;
+            background: #222;
+            transform-origin: center;
+            opacity: 0.7;
+        }
+
+        .crack-1 {
+            width: 3px;
+            height: 200px;
+            top: 10%;
+            left: 30%;
+            transform: rotate(25deg);
+            animation: crackGrow 2s ease-out forwards;
+        }
+
+        .crack-2 {
+            width: 2px;
+            height: 150px;
+            top: 30%;
+            left: 70%;
+            transform: rotate(-15deg);
+            animation: crackGrow 2.5s ease-out forwards;
+        }
+
+        .crack-3 {
+            width: 4px;
+            height: 250px;
+            top: 50%;
+            left: 20%;
+            transform: rotate(45deg);
+            animation: crackGrow 3s ease-out forwards;
+        }
+
+        .crack-4 {
+            width: 2px;
+            height: 180px;
+            top: 60%;
+            left: 80%;
+            transform: rotate(-30deg);
+            animation: crackGrow 2.2s ease-out forwards;
+        }
+
+        .crack-5 {
+            width: 3px;
+            height: 220px;
+            top: 20%;
+            left: 50%;
+            transform: rotate(5deg);
+            animation: crackGrow 2.8s ease-out forwards;
+        }
+
+        @keyframes crackGrow {
+            0% {
+                height: 0;
+                opacity: 0;
+            }
+            50% {
+                opacity: 0.7;
+            }
+            100% {
+                opacity: 0.7;
+            }
+        }
+
+        /*  */
+        .shatter {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent 49.5%, #222 49.5%, #222 50.5%, transparent 50.5%),
+                        linear-gradient(-45deg, transparent 49.5%, #222 49.5%, #222 50.5%, transparent 50.5%);
+            background-size: 50px 50px;
+            opacity: 0.1;
+            animation: shatterEffect 5s infinite;
+        }
+
+        @keyframes shatterEffect {
+            0%, 100% {
+                opacity: 0.1;
+            }
+            50% {
+                opacity: 0.2;
+            }
+        }
+
+        /*  */
+        .loading-container {
+            width: 80%;
+            max-width: 400px;
+            text-align: center;
+            z-index: 10;
+        }
+
+        /*  */
+        .game-title {
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+            margin-bottom: 30px;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+            letter-spacing: 2px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.7; }
+            50% { opacity: 1; }
+            100% { opacity: 0.7; }
+        }
+
+        /*  */
+        .progress-bar-container {
+            width: 100%;
+            height: 20px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+            margin-bottom: 15px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #000 0%, #fff 50%, #000 100%);
+            background-size: 200% 100%;
+            border-radius: 10px;
+            animation: gradientMove 2s linear infinite;
+            transition: width 0.3s ease;
+        }
+
+        @keyframes gradientMove {
+            0% {
+                background-position: 0% 50%;
+            }
+            100% {
+                background-position: 200% 50%;
+            }
+        }
+
+        /*  */
+        .loading-percentage {
+            font-size: 18px;
+            font-weight: bold;
+            color: white;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+        }
+
+        /*  */
+        .flash {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: white;
+            opacity: 0;
+            z-index: 100;
+            pointer-events: none;
+        }
+
+        .flash-active {
+            animation: flashEffect 0.5s ease-out;
+        }
+
+        @keyframes flashEffect {
+            0% {
+                opacity: 0;
+            }
+            50% {
+                opacity: 0.8;
+            }
+            100% {
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!--  -->
+    <div class="cracked-background">
+        <div class="shatter"></div>
+        <div class="crack crack-1"></div>
+        <div class="crack crack-2"></div>
+        <div class="crack crack-3"></div>
+        <div class="crack crack-4"></div>
+        <div class="crack crack-5"></div>
+    </div>
+
+    <!--  -->
+    <div class="loading-container">
+        <div class="game-title">WAR COMMAND: GLOBAL ASSAULT</div>
+        <div class="progress-bar-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+        <div class="loading-percentage" id="loadingPercentage">0%</div>
+    </div>
+
+    <!--  -->
+    <div class="flash" id="flash"></div>
+
+    <script>
+        // 
+        let progress = 0;
+        const progressBar = document.getElementById('progressBar');
+        const loadingPercentage = document.getElementById('loadingPercentage');
+        const flash = document.getElementById('flash');
+        
+        // 
+        function updateProgress() {
+            progress += Math.random() * 15; // 0  15
+            
+            // 100%
+            if (progress > 100) {
+                progress = 100;
+            }
+            
+            // 
+            progressBar.style.width = progress + '%';
+            loadingPercentage.textContent = Math.floor(progress) + '%';
+            
+            // 
+            if (progress >= 100) {
+                // 
+                flash.classList.add('flash-active');
+                
+                // 
+                setTimeout(() => {
+                    window.location.href = 'home.html';
+                }, 500);
+            } else {
+                // 
+                setTimeout(updateProgress, 200 + Math.random() * 300); // 200  500
+            }
+        }
+        
+        // 
+        window.addEventListener('load', () => {
+            setTimeout(updateProgress, 500); // 
+        });
+    </script>
+</body>
+</html>
